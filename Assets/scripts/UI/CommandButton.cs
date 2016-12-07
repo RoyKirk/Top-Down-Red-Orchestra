@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 
-public class CommandButton : MonoBehaviour
+public class CommandButton : EventTrigger
 {
     Button m_button;
 
@@ -10,16 +11,25 @@ public class CommandButton : MonoBehaviour
 	void Start ()
     {
         m_button = GetComponent<Button>();
-	}
-
-    void OnClick()
-    {
-
+        m_button.image.color = Color.red;
     }
 
-    void OnMouseEnter()
+    public void OnClick()
     {
-        Debug.Log("onmouseenter");
-        m_button.Select();
+        Debug.Log(m_button.GetComponentInChildren<Text>().text);
+        m_button.image.color = Color.red;
+        //call squad functions
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        m_button.image.color = Color.green;
+        CommandMenu.selectedButton = this;
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        m_button.image.color = Color.red;
+        CommandMenu.selectedButton = null;
     }
 }

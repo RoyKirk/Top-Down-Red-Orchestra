@@ -4,6 +4,7 @@ using System.Collections;
 public class CommandMenu : MonoBehaviour
 {
     public GameObject menuWheel;
+    public static CommandButton selectedButton;
 
 	// Use this for initialization
 	void Start ()
@@ -22,6 +23,11 @@ public class CommandMenu : MonoBehaviour
         else if (menuWheel.activeInHierarchy == true)
         {
             menuWheel.SetActive(false);
+            if (selectedButton != null)
+            {
+                selectedButton.OnClick();
+                selectedButton = null;
+            }
         }
 	}
 }
